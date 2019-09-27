@@ -67,4 +67,20 @@ class Student
     sql = "DROP TABLE IF EXISTS students"
     DB[:conn].execute(sql)
   end
+
+  def self.all_students_in_grade_9
+    # returns an array of all students in grade 9
+    # pass the return value into "all_in_9"
+    sql = <<-SQL
+      SELECT *
+      FROM students
+      WHERE grade = 9
+    SQL
+
+    DB[:conn].execute(sql)
+  end
+
+  def self.students_below_12th
+    
+  end
 end
