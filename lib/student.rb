@@ -96,14 +96,28 @@ class Student
     end 
   end
 
-  def self.first_X_students_in_grade_10(amount)
+  def self.first_X_students_in_grade_10(n)
+    ## column index out of range error arises
+    # sql = <<-SQL
+    #   SELECT *
+    #   FROM students
+    #   WHERE grade = 10
+    # SQL
+
+    # DB[:conn].execute(sql).map do |row|
+    #   self.new_from_db(row)
+    # end.first(n)
 
     sql = <<-SQL
       SELECT *
       FROM students
-      WHERE grade 10
+      WHERE grade = 10
+      ORDER BY students.id
+      LIMIT ?
     SQL
 
-    DB[:conn].execute(sql, amount)
+    DB[:conn].execute(sql, n).map do |row|
+      self.new_from_db(row)
+    end
   end
 end
